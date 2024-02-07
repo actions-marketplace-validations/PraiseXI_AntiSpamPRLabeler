@@ -4,9 +4,7 @@ $repoName = $env:REPOSITORY_NAME
 $GITHUB_TOKEN = $env:GITHUB_TOKEN
 $maxChangesForLabel = $env:MAX_CHANGES_FOR_LABEL
 $labelMessage = $env:LABEL_MESSAGE
-
-# Base64 encode the GitHub Token
-$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$GITHUB_TOKEN"))
+$authHeader = "Bearer $GITHUB_TOKEN"
 
 function Add-LabelToPullRequest {
     param (
@@ -19,7 +17,7 @@ function Add-LabelToPullRequest {
     } | ConvertTo-Json
 
     Invoke-RestMethod -Uri $labelUri -Method POST -Headers @{
-        Authorization = "Basic $base64AuthInfo"
+        Authorization = $authHeader
         Accept        = "application/vnd.github.v3+json"
     } -Body $body -ContentType "application/json"
 }
@@ -35,14 +33,14 @@ function Add-CommentToPullRequest {
     } | ConvertTo-Json
 
     Invoke-RestMethod -Uri $commentUri -Method POST -Headers @{
-        Authorization = "Basic $base64AuthInfo"
+        Authorization = $authHeader
         Accept        = "application/vnd.github.v3+json"
     } -Body $body -ContentType "application/json"
 }
 
 $uri = "https://api.github.com/repos/$repoOwner/$repoName/pulls?state=open"
 $response = Invoke-RestMethod -Uri $uri -Method Get -Headers @{
-    Authorization = "Basic $base64AuthInfo"
+    Authorization = $authHeader
     Accept        = "application/vnd.github.v3+json"
 }
 

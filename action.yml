@@ -4,6 +4,14 @@ inputs:
   repo-token:
     description: 'The GitHub token for authentication.'
     required: true
+  max-changes-for-label:
+    description: 'The maximum number of changes a PR can have before being labeled.'
+    required: true
+    default: '2'
+  label-message:
+    description: 'Custom message to post on PRs that are labeled as potential spam.'
+    required: false
+    default: 'This PR has been automatically labeled as "Potential Spam" due to its size. Please review.'
 runs:
   using: 'composite'
   steps:

@@ -2,6 +2,8 @@
 $repoOwner = `${{ github.repository_owner }}`
 $repoName = `${{ github.event.repository.name }}`
 $GITHUB_TOKEN = $env:GITHUB_TOKEN
+$maxChangesForLabel = $env:MAX_CHANGES_FOR_LABEL
+$labelMessage = $env:LABEL_MESSAGE
 
 # Base64 encode the GitHub Token
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$GITHUB_TOKEN"))
@@ -50,14 +52,8 @@ foreach ($pr in $response) {
     $deletions = $pr.deletions
     $totalChanges = $additions + $deletions
 
-    $label = switch ($totalChanges) {
-        { $_ -le 10 } { "Potential Spam" }
-        Default { "" }
-    }
-
-    if ($label -ne "") {
-        Add-LabelToPullRequest -prNumber $prNumber -label $label
-        $comment = "This PR has been automatically labeled as 'Potential Spam' due to its size. Please review."
-        Add-CommentToPullRequest -prNumber $prNumber -comment $comment
+    if ($totalChanges -le $maxChangesForLabel) {
+        Add-LabelToPullRequest -prNumber $prNumber -label "Potential Spam"
+        Add-CommentToPullRequest -prNumber $prNumber -comment $labelMessage
     }
 }

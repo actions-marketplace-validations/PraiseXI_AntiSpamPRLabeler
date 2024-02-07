@@ -15,12 +15,18 @@ To incorporate this action into your workflow, add the following step to your Gi
   uses: PraiseXI/AntiSpamPRLabeler@v1
   with:
     repo-token: ${{ secrets.GITHUB_TOKEN }}
-
+    max-changes-for-label: '10' #default is 2
+    label-message: 'This PR has been automatically labeled as "Potential Spam" due to its size. Please review.' 
+    # Optional, default message provided
 ```
-This snippet shows how to configure the action to use the built-in `GITHUB_TOKEN` for API requests.
+This snippet shows how to configure the action to use the built-in `GITHUB_TOKEN` for API requests and allows for optional parameters to customize the labeling and commenting behavior.
 ## Inputs
 
 `repo-token`: **Required**. The GitHub token used to authenticate API requests. This should generally be set to **`${{ secrets.GITHUB_TOKEN }}`** to utilize the automatic token GitHub provides.
+
+`max-changes-for-label`: **Optional**. The maximum number of changes a PR can have before being labeled as 'Potential Spam'. Default is 2.
+
+`label-message`: **Optional**. The message to comment on PRs that are labeled as 'Potential Spam'. A default message is provided if not set.
 
 ## Outputs
 There are no outputs defined for this action. Its primary function is to label and comment on PRs directly.
@@ -45,6 +51,9 @@ jobs:
       uses: PraiseXI/AntiSpamPRLabeler@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+        max-changes-for-label: '2' # Optional, default is 2
+        label-message: 'Custom message for labeled PRs.' 
+        # Optional, your custom message here
 ```
 ## Contributing
 Contributions to the PR Labeler and Commenter Action are welcome! Please submit pull requests or open issues with your suggestions.

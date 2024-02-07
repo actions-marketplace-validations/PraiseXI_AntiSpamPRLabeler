@@ -40,7 +40,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      
+
     - name: Label and Comment PRs
       uses: PraiseXI/AntiSpamPRLabeler@v1
       with:
@@ -50,4 +50,4 @@ jobs:
 Contributions to the PR Labeler and Commenter Action are welcome! Please submit pull requests or open issues with your suggestions.
 
 ## License
-Distributed under the MIT License. See LICENSE for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/PraiseXI/AntiSpamPRLabeler/blob/main/LICENSE) for more information.

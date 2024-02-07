@@ -17,6 +17,6 @@ runs:
   steps:
     - name: Label and comment on PRs
       shell: pwsh
-      run: ./AntiSpamPRLabeler.ps1 -GITHUB_TOKEN ${{ inputs.repo-token }} -MAX_CHANGES_FOR_LABEL ${{ inputs.max-changes-for-label }} -LABEL_MESSAGE "${{ inputs.label-message }}"
+      run: ${{ github.action_path }}/AntiSpamPRLabeler.ps1 -GITHUB_TOKEN ${{ inputs.repo-token }} -MAX_CHANGES_FOR_LABEL ${{ inputs.max-changes-for-label }} -LABEL_MESSAGE "${{ inputs.label-message }}"
       env:
         GITHUB_TOKEN: ${{ inputs.repo-token }}

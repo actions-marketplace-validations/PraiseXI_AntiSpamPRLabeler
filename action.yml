@@ -1,0 +1,14 @@
+name: 'PR Labeler and Commenter'
+description: 'Automatically labels and comments on pull requests based on the number of changes to help identify potential spam or small contributions.'
+inputs:
+  repo-token:
+    description: 'The GitHub token for authentication.'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Label and comment on PRs
+      shell: pwsh
+      run: ./.github/scripts/AntiSpamPRLabeler.ps1
+      env:
+        GITHUB_TOKEN: ${{ inputs.repo-token }}

@@ -1,4 +1,4 @@
-# AntiSpamPRSizer
+# AntiSpamPRLabeler
 
 This GitHub Action automatically labels and comments on pull requests based on the number of changes. It's designed to help maintainers quickly identify potential spam or small contributions.
 

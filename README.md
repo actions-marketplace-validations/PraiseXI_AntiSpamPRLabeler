@@ -15,7 +15,7 @@ To incorporate this action into your workflow, add the following step to your Gi
   uses: PraiseXI/AntiSpamPRLabeler@v1
   with:
     repo-token: ${{ secrets.GITHUB_TOKEN }}
-    max-changes-for-label: '10' #default is 2
+    max-changes-for-label: '2' #default is 2
     label-message: 'This PR has been automatically labeled as "Potential Spam" due to its size. Please review.' 
     # Optional, default message provided
 ```
